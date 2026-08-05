@@ -38,6 +38,15 @@ obj;</camunda:script>
 
 print("The userObject ::" + JSON.stringify(obj));
 
+
+var obj4= {
+    id:"27",
+    name :"Soni"
+}
+
+execution.setVariable("userObj4",obj4);
+
+
 obj;</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_0ar8r5f" sourceRef="Activity_1wxm7pw" targetRef="Activity_0x15x4e" />
