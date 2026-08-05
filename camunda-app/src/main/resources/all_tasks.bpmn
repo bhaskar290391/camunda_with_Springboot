@@ -8,15 +8,37 @@
     <bpmn:endEvent id="Event_07whmiu">
       <bpmn:incoming>Flow_1gosqba</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:scriptTask id="Activity_1wxm7pw" name="Initialize the User object" scriptFormat="javascript">
+    <bpmn:scriptTask id="Activity_1wxm7pw" name="Initialize the User object" scriptFormat="javascript" camunda:resultVariable="userObj">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="userObj3">
+            <camunda:script scriptFormat="javascript">var obj= {
+    id:"20",
+    name :"Sammy"
+}
+
+obj;</camunda:script>
+          </camunda:outputParameter>
+          <camunda:outputParameter name="userObj2">
+            <camunda:script scriptFormat="javascript">var obj= {
+    id:"10",
+    name :"kanishk"
+}
+
+obj;</camunda:script>
+          </camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1yfilfv</bpmn:incoming>
       <bpmn:outgoing>Flow_0ar8r5f</bpmn:outgoing>
-      <bpmn:script>var userObj= {
+      <bpmn:script>var obj= {
     id:"29",
     name :"bhaskar"
 }
 
-print("The userObject ::" + JSON.stringify(userObj));</bpmn:script>
+print("The userObject ::" + JSON.stringify(obj));
+
+obj;</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_0ar8r5f" sourceRef="Activity_1wxm7pw" targetRef="Activity_0x15x4e" />
     <bpmn:sequenceFlow id="Flow_1gosqba" sourceRef="Activity_0x15x4e" targetRef="Event_07whmiu" />
@@ -27,26 +49,26 @@ print("The userObject ::" + JSON.stringify(userObj));</bpmn:script>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="all_tasks">
-      <bpmndi:BPMNEdge id="Flow_1yfilfv_di" bpmnElement="Flow_1yfilfv">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="270" y="117" />
+      <bpmndi:BPMNEdge id="Flow_1gosqba_di" bpmnElement="Flow_1gosqba">
+        <di:waypoint x="510" y="117" />
+        <di:waypoint x="612" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ar8r5f_di" bpmnElement="Flow_0ar8r5f">
         <di:waypoint x="370" y="117" />
         <di:waypoint x="410" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1gosqba_di" bpmnElement="Flow_1gosqba">
-        <di:waypoint x="510" y="117" />
-        <di:waypoint x="612" y="117" />
+      <bpmndi:BPMNEdge id="Flow_1yfilfv_di" bpmnElement="Flow_1yfilfv">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1oj4cfg_di" bpmnElement="Activity_1wxm7pw">
-        <dc:Bounds x="270" y="77" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_07whmiu_di" bpmnElement="Event_07whmiu">
         <dc:Bounds x="612" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oj4cfg_di" bpmnElement="Activity_1wxm7pw">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_11q8ck0_di" bpmnElement="Activity_0x15x4e">
         <dc:Bounds x="410" y="77" width="100" height="80" />
