@@ -11,6 +11,15 @@
     <bpmn:scriptTask id="Activity_1wxm7pw" name="Initialize the User object" scriptFormat="javascript" camunda:resultVariable="userObj">
       <bpmn:extensionElements>
         <camunda:inputOutput>
+          <camunda:inputParameter name="objUser5">
+            <camunda:script scriptFormat="javascript">var data={
+
+  id: 6,
+name :"Test"
+};
+
+data;</camunda:script>
+          </camunda:inputParameter>
           <camunda:outputParameter name="userObj3">
             <camunda:script scriptFormat="javascript">var obj= {
     id:"20",
@@ -46,6 +55,7 @@ var obj4= {
 
 execution.setVariable("userObj4",obj4);
 
+print("The userObject 5 ::" + JSON.stringify(objUser5));
 
 obj;</bpmn:script>
     </bpmn:scriptTask>
@@ -63,12 +73,16 @@ obj;</bpmn:script>
         <di:waypoint x="612" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ar8r5f_di" bpmnElement="Flow_0ar8r5f">
-        <di:waypoint x="370" y="117" />
+        <di:waypoint x="370" y="118" />
+        <di:waypoint x="390" y="118" />
+        <di:waypoint x="390" y="117" />
         <di:waypoint x="410" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1yfilfv_di" bpmnElement="Flow_1yfilfv">
         <di:waypoint x="215" y="117" />
-        <di:waypoint x="270" y="117" />
+        <di:waypoint x="243" y="117" />
+        <di:waypoint x="243" y="118" />
+        <di:waypoint x="270" y="118" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
@@ -76,11 +90,11 @@ obj;</bpmn:script>
       <bpmndi:BPMNShape id="Event_07whmiu_di" bpmnElement="Event_07whmiu">
         <dc:Bounds x="612" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1oj4cfg_di" bpmnElement="Activity_1wxm7pw">
-        <dc:Bounds x="270" y="77" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_11q8ck0_di" bpmnElement="Activity_0x15x4e">
         <dc:Bounds x="410" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oj4cfg_di" bpmnElement="Activity_1wxm7pw">
+        <dc:Bounds x="270" y="78" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
