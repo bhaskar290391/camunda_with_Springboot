@@ -63,7 +63,7 @@ obj;</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_0weyq56" sourceRef="Activity_0x15x4e" targetRef="Activity_1ebq6ek" />
     <bpmn:endEvent id="Event_1au74i4">
-      <bpmn:incoming>Flow_1dkcv24</bpmn:incoming>
+      <bpmn:incoming>Flow_041beuw</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:serviceTask id="Activity_1ebq6ek" name="FetchEmail Service" camunda:class="com.krishan.delegates.FetchEmailDelegate">
       <bpmn:extensionElements>
@@ -101,7 +101,6 @@ print("The user Updated "+JSON.stringify(userObj));</camunda:script>
       <bpmn:outgoing>Flow_1v49hb1</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1v49hb1" sourceRef="Activity_1xoi37w" targetRef="Activity_0t63jkz" />
-    <bpmn:sequenceFlow id="Flow_1dkcv24" sourceRef="Activity_0t63jkz" targetRef="Event_1au74i4" />
     <bpmn:serviceTask id="Activity_0t63jkz" name="Fetch User department" camunda:expression="${fetchUserDepartment.findUserDepartment()}" camunda:resultVariable="userDepartment">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -115,7 +114,56 @@ print("The user Updated "+JSON.stringify(userObj));</camunda:script>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1v49hb1</bpmn:incoming>
-      <bpmn:outgoing>Flow_1dkcv24</bpmn:outgoing>
+      <bpmn:outgoing>Flow_06y9kl2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_06y9kl2" sourceRef="Activity_0t63jkz" targetRef="Activity_0j5qmqz" />
+    <bpmn:serviceTask id="Activity_0j5qmqz" name="Http Connector GET">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://api.escuelajs.co/api/v1/users</camunda:inputParameter>
+            <camunda:outputParameter name="responseGet">
+              <camunda:script scriptFormat="javascript">var users = JSON.parse(response);
+print("User name = " + users[0].name);
+users[0].name;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_06y9kl2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y1q2sp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1y1q2sp" sourceRef="Activity_0j5qmqz" targetRef="Activity_1xet58w" />
+    <bpmn:sequenceFlow id="Flow_041beuw" sourceRef="Activity_1xet58w" targetRef="Event_1au74i4" />
+    <bpmn:serviceTask id="Activity_1xet58w" name="Http Connector  POST">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="javascript">var obj= {
+    "userId": 5,
+    "id": 5,
+    "title": "Test",
+    "body": "Test"
+  };
+
+JSON.stringify(obj);</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://jsonplaceholder.typicode.com/posts</camunda:inputParameter>
+            <camunda:outputParameter name="responsePOST">
+              <camunda:script scriptFormat="javascript">print("responsePOST ==&gt;"+ response);
+
+response;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1y1q2sp</bpmn:incoming>
+      <bpmn:outgoing>Flow_041beuw</bpmn:outgoing>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -146,11 +194,18 @@ print("The user Updated "+JSON.stringify(userObj));</camunda:script>
         <di:waypoint x="860" y="118" />
         <di:waypoint x="920" y="118" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1dkcv24_di" bpmnElement="Flow_1dkcv24">
-        <di:waypoint x="970" y="158" />
-        <di:waypoint x="970" y="225" />
-        <di:waypoint x="990" y="225" />
-        <di:waypoint x="990" y="292" />
+      <bpmndi:BPMNEdge id="Flow_06y9kl2_di" bpmnElement="Flow_06y9kl2">
+        <di:waypoint x="1020" y="118" />
+        <di:waypoint x="1080" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y1q2sp_di" bpmnElement="Flow_1y1q2sp">
+        <di:waypoint x="1180" y="118" />
+        <di:waypoint x="1240" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_041beuw_di" bpmnElement="Flow_041beuw">
+        <di:waypoint x="1290" y="158" />
+        <di:waypoint x="1290" y="250" />
+        <di:waypoint x="1148" y="250" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
@@ -167,11 +222,17 @@ print("The user Updated "+JSON.stringify(userObj));</camunda:script>
       <bpmndi:BPMNShape id="Activity_0dgl0zv_di" bpmnElement="Activity_1xoi37w">
         <dc:Bounds x="760" y="78" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1au74i4_di" bpmnElement="Event_1au74i4">
-        <dc:Bounds x="972" y="292" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ltxuzr_di" bpmnElement="Activity_0t63jkz">
         <dc:Bounds x="920" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1au74i4_di" bpmnElement="Event_1au74i4">
+        <dc:Bounds x="1112" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dpqfnn_di" bpmnElement="Activity_0j5qmqz">
+        <dc:Bounds x="1080" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0v681w8_di" bpmnElement="Activity_1xet58w">
+        <dc:Bounds x="1240" y="78" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
