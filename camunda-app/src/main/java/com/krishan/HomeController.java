@@ -4,7 +4,10 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.runtime.ProcessInstantiationBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.ws.rs.PathParam;
 
 @RestController
 public class HomeController {
@@ -42,5 +45,17 @@ public class HomeController {
 
 		return "Executed Scripts task !!!";
 
+	}
+	
+	
+	@GetMapping("/execute/{processKey}")
+	public String execute(@PathVariable String processKey) {
+
+		ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
+		ProcessInstantiationBuilder processInstanceByKey = engine.getRuntimeService()
+				.createProcessInstanceByKey(processKey);
+
+		processInstanceByKey.executeWithVariablesInReturn();
+		return " BPMN Executed !!!    " + processKey;
 	}
 }
